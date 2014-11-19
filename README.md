@@ -1,0 +1,1 @@
+This is the repository for the Oregon State University Robotics Club's Robotics Kit (the ORK).
