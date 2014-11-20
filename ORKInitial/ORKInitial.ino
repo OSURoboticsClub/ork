@@ -67,7 +67,7 @@ void setup() {
     
     //Ultrasonic
     pinMode(trigPin, OUTPUT);
-    pinMode(echoPin, OUTPUT);
+    pinMode(echoPin, INPUT);
 
 /*  Only for Shift Register (Not included in Kit)
     pinMode(shiftRegData, OUTPUT); // make the clock pin an output
