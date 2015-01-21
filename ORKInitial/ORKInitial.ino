@@ -24,9 +24,9 @@ Description:
 
 */
 
-#include <Servo.h>
+#include <Servo.h> //includes the servo library so that you can easily use its functions
 
-//Constants
+//Constants; This is where you should define anything you will use that won't change in your code
 const int switchPin = 2;    // switch input
 const int motor1Pin = 5;    // H-bridge leg 1 (pin 2, 1A)
 const int motor2Pin = 4;    // H-bridge leg 2 (pin 7, 2A)
@@ -50,9 +50,9 @@ const int shiftRegClock = 12;
 //SH_CP - D13
 //ST_CP - D10
 
-Servo sonicServo;  //Create the servo object
+Servo sonicServo;  //Create the servo object. This names the servo sonicServo which you will later call in your code.
 
-void setup() {
+void setup() { // the word void means that this function won't return anything. The setup function get's called in arduino, at the beginning to define all the pins you will be using.
     // set the switch as an input:
     pinMode(switchPin, INPUT); 
  
@@ -69,24 +69,21 @@ void setup() {
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
 
-/*  Only for Shift Register (Not included in Kit)
-    pinMode(shiftRegData, OUTPUT); // make the clock pin an output
-    pinMode(shiftRegClock , OUTPUT); // make the data pin an output
-*/
-
-	//For testing
+    //This is the onboard LED that can be helpful for testing
     pinMode(13, OUTPUT);
     pinMode(13, HIGH);
     
+    // This sets the servo to pin 9
     sonicServo.attach(9);
  
     // set enablePin high so that motor can turn on:
     analogWrite(enablePin, 255);
     
-    Serial.begin(9600);  //For debugging
+    // You will be able to stream the sonar data over the serial terminal (found in tools on the Arduino IDE), by running Serial.println(yourVariable)
+    Serial.begin(9600); 
 }
     
-void loop() {
+void loop() { // This is the main loop that will get run. This is where you should put all your magical super awesome avoidance algorithms.
 
   int x = 1;
   int var;
@@ -137,9 +134,9 @@ void driveMotor(uint8_t motorSel, float motorSpeed){
   }
 }
 
-//Returns distance
+//This is the distance function. It returns distance from the sonar sensor by sending a pulse waiting then reading the time it takes for the echo. Divide this by 2 (there and back) and by the speed of sound and you get a fairly accurate distance reading.
 long readDistance(void){
-  long duration, distance;
+  long duration, distance; // long is a variable type, meaning the value can be longer (aka more accurate). This line initializes these two variables.
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
@@ -149,11 +146,4 @@ long readDistance(void){
   distance = (duration/2) / 29.1;
   return distance;
 }
-
-//Only for Shift Register (Not included in Kit)
-//Don't try to call this function.
-void writeToFace(int dataToWrite){
-  shiftOut(shiftRegData, shiftRegClock, LSBFIRST, dataToWrite);
-}
-
 
