@@ -99,10 +99,6 @@ void loop() { // This is the main loop that will get run. This is where you shou
       inc *= -1;
     }
 
-/*  Only for Shift Register (Not included in Kit)
-    if(inc < 0) writeToFace(B10101010);
-    else writeToFace(B01010101);   
-*/
     delay(100);
   }
 }
